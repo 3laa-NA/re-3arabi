@@ -280,7 +280,7 @@ class FASELHD(private val context: Context) : MainAPI() {
                     }
                 }
 
-            return HomePageResponse(lists.filter { it.list.isNotEmpty() }, hasNext = false)
+            return newHomePageResponse(lists.filter { it.list.isNotEmpty() }, hasNext = false)
         } else {
 
             val items = document.select(".postDiv, .blockMovie").mapNotNull { it.toSearchResult() }

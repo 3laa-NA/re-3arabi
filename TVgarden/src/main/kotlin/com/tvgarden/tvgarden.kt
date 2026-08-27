@@ -7,7 +7,7 @@ import com.lagradost.cloudstream3.utils.Qualities
 import com.lagradost.cloudstream3.utils.newExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 class FamelackProvider : MainAPI() {
-    override var mainUrl = "https://famelack.com"
+    override var mainUrl = "https://tvgarden.world"
     override var name = "TVgarden(Famelack)"
     override val supportedTypes = setOf(TvType.Live)
     override var lang = "en"
@@ -36,7 +36,7 @@ class FamelackProvider : MainAPI() {
                 ) {
                     type = TvType.Live
 
-                    posterUrl = "https://famelack.com/assets/favicons/favicon-512.png"
+                    posterUrl = "$mainUrl/assets/favicons/favicon-512.png"
                     lang = "en"
                 }
             }
@@ -74,7 +74,7 @@ class FamelackProvider : MainAPI() {
                             url = targetUrl,
                         ) {
                             type = TvType.Live
-                            posterUrl = "https://famelack.com/assets/favicons/favicon-512.png"
+                            posterUrl = "$mainUrl/assets/favicons/favicon-512.png"
                             lang = "en"
                         }
                     }
@@ -98,7 +98,7 @@ class FamelackProvider : MainAPI() {
             dataUrl = url
         ) {
 
-            posterUrl = "https://famelack.com/assets/favicons/favicon-512.png"
+            posterUrl = "$mainUrl/assets/favicons/favicon-512.png"
         }
     }
 

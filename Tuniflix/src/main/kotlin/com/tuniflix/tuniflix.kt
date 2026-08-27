@@ -273,7 +273,7 @@ class Tuniflix : MainAPI() {
 
                                 if (linksToAdd.isNotEmpty()) {
 
-                                    linksToAdd.apmap { (name, rawLink) ->
+                                    linksToAdd.amap { (name, rawLink) ->
 
                                         val masterM3u8 = sanitizeUrl(rawLink)
 

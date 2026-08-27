@@ -65,7 +65,7 @@ class SyriaLiveProvider : MainAPI() {
             homePageList.add(HomePageList("آخر الأخبار", news))
         }
 
-        return HomePageResponse(homePageList)
+        return newHomePageResponse(homePageList)
     }
 
     override suspend fun search(query: String): List<SearchResponse> {

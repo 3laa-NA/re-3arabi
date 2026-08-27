@@ -158,19 +158,19 @@ class Shahid4u : MainAPI() {
         }
 
         val categories = listOf(
-            "أفلام أجنبي" to "${mainUrl}category/افلام-اجنبي",
-            "أفلام عربي" to "${mainUrl}category/افلام-عربي",
-            "أفلام هندي" to "${mainUrl}category/افلام-هندي",
-            "أفلام تركية" to "${mainUrl}category/افلام-تركية",
-            "أفلام أسيوية" to "${mainUrl}category/افلام-اسيوية",
-            "أفلام انمي" to "${mainUrl}category/افلام-انمي",
-            "مسلسلات أجنبي" to "${mainUrl}category/مسلسلات-اجنبي",
-            "مسلسلات عربي" to "${mainUrl}category/مسلسلات-عربي",
-            "مسلسلات هندية" to "${mainUrl}category/مسلسلات-هندية",
-            "مسلسلات تركية" to "${mainUrl}category/مسلسلات-تركية",
-            "مسلسلات أسيوية" to "${mainUrl}category/مسلسلات-اسيوية",
-            "مسلسلات انمي" to "${mainUrl}category/مسلسلات-انمي",
-            "مسلسلات مدبلجة" to "${mainUrl}category/مسلسلات-مدبلجة"
+            "أفلام أجنبي" to "${mainUrl}/category/افلام-اجنبي",
+            "أفلام عربي" to "${mainUrl}/category/افلام-عربي",
+            "أفلام هندي" to "${mainUrl}/category/افلام-هندي",
+            "أفلام تركية" to "${mainUrl}/category/افلام-تركية",
+            "أفلام أسيوية" to "${mainUrl}/category/افلام-اسيوية",
+            "أفلام انمي" to "${mainUrl}/category/افلام-انمي",
+            "مسلسلات أجنبي" to "${mainUrl}/category/مسلسلات-اجنبي",
+            "مسلسلات عربي" to "${mainUrl}/category/مسلسلات-عربي",
+            "مسلسلات هندية" to "${mainUrl}/category/مسلسلات-هندية",
+            "مسلسلات تركية" to "${mainUrl}/category/مسلسلات-تركية",
+            "مسلسلات أسيوية" to "${mainUrl}/category/مسلسلات-اسيوية",
+            "مسلسلات انمي" to "${mainUrl}/category/مسلسلات-انمي",
+            "مسلسلات مدبلجة" to "${mainUrl}/category/مسلسلات-مدبلجة"
         )
 
         for ((title, url) in categories) {
@@ -190,7 +190,7 @@ class Shahid4u : MainAPI() {
 
     override suspend fun search(query: String): List<SearchResponse> {
         val encoded = URLEncoder.encode(query, "UTF-8")
-        val searchUrl = "${mainUrl}search?s=$encoded"
+        val searchUrl = "${mainUrl}/search?s=$encoded"
 
         return try {
             val document = httpGet(searchUrl, referer = mainUrl)
@@ -230,7 +230,7 @@ class Shahid4u : MainAPI() {
         val episodes = ArrayList<Episode>()
 
         if (seasons.isNotEmpty()) {
-            seasons.apmap { seasonElement ->
+            seasons.amap { seasonElement ->
                 val seasonUrl = seasonElement.attr("href")
                 val seasonDoc = app.get(seasonUrl).document
 

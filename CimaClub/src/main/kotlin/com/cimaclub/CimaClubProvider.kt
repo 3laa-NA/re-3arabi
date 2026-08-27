@@ -31,7 +31,7 @@ class CimaClub : MainAPI() {
     )
 
     private fun Element.toSearchResponse(): SearchResponse? {
-        val title = this.selectFirst("inner--title > h2")?.text()?.trim() ?: return null
+        val title = this.selectFirst(".inner--title > h2")?.text()?.trim() ?: return null
         val href = this.selectFirst("a")?.attr("href") ?: return null
         val posterUrl = this.selectFirst("img")?.let {
             it.attr("data-src").ifBlank { it.attr("src") }
@@ -57,7 +57,7 @@ class CimaClub : MainAPI() {
 
 
         return document.select("div.BlocksHolder > div.Small--Box").mapNotNull { element ->
-            val title = element.selectFirst("inner--title > h2")?.text()?.trim() ?: return@mapNotNull null
+            val title = element.selectFirst(".inner--title > h2")?.text()?.trim() ?: return@mapNotNull null
             val href = element.selectFirst("a")?.attr("href") ?: return@mapNotNull null
             val posterUrl = element.selectFirst("img")?.let {
                 it.attr("data-src").ifBlank { it.attr("src") }
@@ -116,7 +116,7 @@ class CimaClub : MainAPI() {
             val seasons = document.select("section.allseasonss .Small--Box a")
 
             if (seasons.isNotEmpty()) {
-                seasons.apmap { seasonLink ->
+                seasons.amap { seasonLink ->
                     val seasonUrl = seasonLink.attr("href")
                     val seasonDoc = if (seasonUrl == url) document else app.get(seasonUrl).document
                     val seasonNumText =
@@ -183,7 +183,7 @@ class CimaClub : MainAPI() {
 
         val document = app.get(watchUrl).document
 
-        document.select("ul#watch li").apmap {
+        document.select("ul#watch li").amap {
             val embedUrl = it.attr("data-watch")
             if (embedUrl.isNotBlank()) {
 
@@ -191,7 +191,7 @@ class CimaClub : MainAPI() {
             }
         }
 
-        document.select(".ServersList.Download a").apmap { element ->
+        document.select(".ServersList.Download a").amap { element ->
             val downloadUrl = element.attr("href")?.trim()
             if (!downloadUrl.isNullOrBlank()) {
 

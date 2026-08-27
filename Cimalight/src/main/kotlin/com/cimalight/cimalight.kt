@@ -95,7 +95,7 @@ class CimaLightProvider : MainAPI() {
     }
 
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
-        val document = getDocOrSolve(request.data) ?: return HomePageResponse(emptyList())
+        val document = getDocOrSolve(request.data) ?: return newHomePageResponse(emptyList())
         val homePageList = ArrayList<HomePageList>()
         val addedSectionNames = mutableSetOf<String>()
 
@@ -141,7 +141,7 @@ class CimaLightProvider : MainAPI() {
             }
         }
 
-        return HomePageResponse(homePageList)
+        return newHomePageResponse(homePageList)
     }
 
     private fun Element.toSearchResult(): SearchResponse? {
@@ -248,7 +248,7 @@ class CimaLightProvider : MainAPI() {
             }
 
         val intermediateDoc = app.get(intermediateUrl, headers = headersWithReferer).document
-        intermediateDoc.select("div.embeding ul li").apmap { serverElement ->
+        intermediateDoc.select("div.embeding ul li").amap { serverElement ->
             val serverUrl = serverElement.attr("data-embed")
             if (serverUrl.startsWith("http")) {
                 loadExtractor(serverUrl, data, subtitleCallback, callback)

@@ -156,7 +156,7 @@ class EgyDead : MainAPI() {
             httpGet(mainUrl)
         } catch (e: Exception) {
             log(logTag, "CRITICAL ERROR: Failed to fetch main page -> ${e.message}")
-            return HomePageResponse(emptyList())
+            return newHomePageResponse(emptyList())
         }
 
         val homePageList = ArrayList<HomePageList>()
@@ -208,7 +208,7 @@ class EgyDead : MainAPI() {
             log(logTag, "WARNING: homePageList is empty. Possible selector mismatch or empty page.")
         }
 
-        return HomePageResponse(homePageList.filter { it.list.isNotEmpty() })
+        return newHomePageResponse(homePageList.filter { it.list.isNotEmpty() })
     }
 
     private fun Element.toSearchResponse(parentTag: String): SearchResponse? {

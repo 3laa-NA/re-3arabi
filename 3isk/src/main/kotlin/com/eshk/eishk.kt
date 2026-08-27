@@ -76,7 +76,7 @@ class eishk : MainAPI() {
                 all.add(HomePageList(title, items))
             }
         }
-        return HomePageResponse(all)
+        return newHomePageResponse(all)
     }
 
     override suspend fun search(query: String): List<SearchResponse> {

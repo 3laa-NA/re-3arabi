@@ -6,7 +6,6 @@ import com.lagradost.cloudstream3.utils.*
 import com.lagradost.cloudstream3.utils.AppUtils.parseJson
 import android.util.Base64
 import com.lagradost.cloudstream3.mvvm.logError
-import com.lagradost.cloudstream3.network.WebViewResolver
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
@@ -88,7 +87,7 @@ class WitAnime : MainAPI() {
             if (items.isNotEmpty()) homePageList.add(HomePageList(title, items))
         }
 
-        return HomePageResponse(homePageList)
+        return newHomePageResponse(homePageList)
     }
 
     override suspend fun search(query: String): List<SearchResponse> {
@@ -112,10 +111,7 @@ class WitAnime : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse {
 
-        val document = app.get(
-            url,
-            interceptor = WebViewResolver(interceptUrl = Regex(url))
-        ).document
+        val document = app.get(url).document
 
         val title = document.selectFirst("h1.anime-details-title")?.text()?.trim() ?: ""
         val poster = document.selectFirst("div.anime-thumbnail img")?.attr("src")

@@ -67,7 +67,7 @@ class Akwam : MainAPI() {
             }
 
             if (list.isEmpty()) throw ErrorLoadingException()
-            return HomePageResponse(listOf(HomePageList(request.name ?: "قائمة", list)))
+            return newHomePageResponse(listOf(HomePageList(request.name ?: "قائمة", list)))
         }
 
         val urls = listOf(
@@ -115,7 +115,7 @@ class Akwam : MainAPI() {
         }
 
         if (items.isEmpty()) throw ErrorLoadingException()
-        return HomePageResponse(items)
+        return newHomePageResponse(items)
     }
 
     override suspend fun search(query: String): List<SearchResponse> {
@@ -151,7 +151,7 @@ class Akwam : MainAPI() {
             ?: mainDoc.selectFirst("meta[name=description]")?.attr("content")?.trim()
 
         val rating = mainDoc.selectFirst("span.mx-2:contains(/)")
-            ?.text()?.substringAfter("/")?.trim()?.toRatingInt()
+            ?.text()?.substringAfter("/")?.trim()?.toDoubleOrNull()?.let { Score.from10(it) }
 
         val tags =
             mainDoc.select("div.font-size-16.text-white a[href*='/genre/'], div.font-size-16.text-white a[href*='/category/']")
@@ -203,7 +203,7 @@ class Akwam : MainAPI() {
                 this.plot = plot
                 this.year = year
                 this.tags = tags
-                this.rating = rating
+                this.score = rating
                 this.recommendations = recommendations // <-- إضافة التوصيات هنا
             }
         }
@@ -248,7 +248,7 @@ class Akwam : MainAPI() {
                 this.plot = plot
                 this.year = year
                 this.tags = tags
-                this.rating = rating
+                this.score = rating
                 this.recommendations = recommendations // <-- إضافة التوصيات هنا
             }
         }
@@ -264,7 +264,7 @@ class Akwam : MainAPI() {
             this.plot = plot
             this.year = year
             this.tags = tags
-            this.rating = rating
+            this.score = rating
             this.recommendations = recommendations // <-- إضافة التوصيات هنا
         }
     }

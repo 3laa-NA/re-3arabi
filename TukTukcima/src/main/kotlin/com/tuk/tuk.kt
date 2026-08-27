@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 class TukTukHd : MainAPI() {
-    override var mainUrl = "https://tuktukhd.com"
+    override var mainUrl = "https://tukcima.com"
     override var name = "TukTukcima"
     override val hasMainPage = true
     override var lang = "ar"
@@ -131,7 +131,7 @@ class TukTukHd : MainAPI() {
 
         val year = doc.select(".RightTaxContent a[href*='release-year']").text().filter { it.isDigit() }.toIntOrNull()
         val ratingText = doc.select(".imdbS strong").text()
-        val ratingInt = ratingText.toDoubleOrNull()?.times(1000)?.toInt()
+        val ratingInt = ratingText.toDoubleOrNull()?.let { Score.from10(it) }
 
 
         val isSeries = doc.select(".allepcont, .allseasonss").isNotEmpty()
@@ -143,7 +143,7 @@ class TukTukHd : MainAPI() {
 
             if (seasonElements.isNotEmpty()) {
 
-                seasonElements.apmap { seasonEl ->
+                seasonElements.amap { seasonEl ->
                     val seasonUrl = fixUrl(seasonEl.attr("href"))
                     val seasonName = seasonEl.select("h3").text()
                     val seasonNum = seasonName.filter { it.isDigit() }.toIntOrNull() ?: 1
@@ -190,7 +190,7 @@ class TukTukHd : MainAPI() {
                 this.posterUrl = poster
                 this.plot = desc
                 this.year = year
-                this.rating = ratingInt
+                this.score = ratingInt
             }
 
         } else {
@@ -200,7 +200,7 @@ class TukTukHd : MainAPI() {
                 this.posterUrl = poster
                 this.plot = desc
                 this.year = year
-                this.rating = ratingInt
+                this.score = ratingInt
             }
         }
     }
@@ -258,7 +258,7 @@ class TukTukHd : MainAPI() {
                     } ?: emptyList()
                 } ?: emptyList()
 
-                allLinks.apmap { link ->
+                allLinks.amap { link ->
                     loadExtractor(link, subtitleCallback, callback)
                 }
             }

@@ -62,7 +62,7 @@ class Anime4up : MainAPI() {
             }
         }
 
-        return HomePageResponse(homePageList)
+        return newHomePageResponse(homePageList)
     }
 
 
@@ -245,7 +245,7 @@ class Anime4up : MainAPI() {
 
         val seenLinks = mutableSetOf<String>()
 
-        doc.select("ul#episode-servers li[data-watch]").apmap { li ->
+        doc.select("ul#episode-servers li[data-watch]").amap { li ->
             val serverUrl = li.attr("data-watch")
 
             val linksToProcess = if (serverUrl.contains("share4max") || serverUrl.contains("megamax")) {
@@ -261,7 +261,7 @@ class Anime4up : MainAPI() {
             }
         }
 
-        doc.select("div.download-list table.table tbody tr").apmap { tr ->
+        doc.select("div.download-list table.table tbody tr").amap { tr ->
             val downloadLink = tr.selectFirst("td.td-link a")?.attr("href")
 
             if (!downloadLink.isNullOrBlank() && seenLinks.add(downloadLink)) {

@@ -39,7 +39,7 @@ class WecimaProvider : MainAPI() {
     }
 
     @Volatile
-    private var currentCfCookie: String? = "cf_clearance=ED0NVzmNRSWM57kanLn3lwlIaUBtZI2vPk1ZAP6zyfA-1763125072-1.2.1.1-eWAxOeBZN.zpvnXMgT46AJocpEalzqZ3WXlNZzjhIhJEvbNkRhY1Mz84sv6onyU7zfGBygnr3XbAw955PxJHjnRFUMqcp6o0rbp5wT4hJMMFiUaOSABpAAx.9G7sYlmslO5bpns2BZxvxUlV3onCRMAQY7lUHW.MCZCH10MtRNaPKsDmxvtZo14sQDLEXyu8tEDOAkjElHCHAW3iyseTRNN2j0Zd7ceblYh28.E7PwA;"
+    private var currentCfCookie: String? = null
 
     private val cloudflareKiller by lazy { CloudflareKiller() }
 
@@ -329,7 +329,7 @@ class WecimaProvider : MainAPI() {
 
             if (seasonElements.isNotEmpty()) {
 
-                seasonElements.apmap { seasonEl ->
+                seasonElements.amap { seasonEl ->
                     val seasonNum = Regex("الموسم (\\d+)").find(seasonEl.text())?.groupValues?.get(1)?.toIntOrNull()
                     val dataId = seasonEl.attr("data-id")
                     val dataSeason = seasonEl.attr("data-season")
@@ -421,7 +421,7 @@ class WecimaProvider : MainAPI() {
 
         val document = httpGet(data)
 
-        document.select("ul.WatchServersList li btn").apmap { serverBtn ->
+        document.select("ul.WatchServersList li btn").amap { serverBtn ->
             val encodedUrl = serverBtn.attr("data-url")
             decodeWecimaUrl(encodedUrl)?.let { decodedUrl ->
 
@@ -432,7 +432,7 @@ class WecimaProvider : MainAPI() {
             }
         }
 
-        document.select(".openLinkDown").apmap { downloadBtn ->
+        document.select(".openLinkDown").amap { downloadBtn ->
             val encodedUrl = downloadBtn.attr("data-href")
             decodeWecimaUrl(encodedUrl)?.let { decodedUrl ->
 

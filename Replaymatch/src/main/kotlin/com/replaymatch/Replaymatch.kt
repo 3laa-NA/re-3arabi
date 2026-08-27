@@ -20,7 +20,7 @@ data class MainCategory(val name: String, val url: String, val key: String)
 class FullMatchShowsProvider(private val context: Context) : MainAPI() {
 
     override var name = "FullMatchShows"
-    override var mainUrl = "https://fullmatchshows.com"
+    override var mainUrl = "https://replaymatch.net"
     override var lang = "en"
     override val hasMainPage = true
     override val supportedTypes = setOf(TvType.Movie)
@@ -92,7 +92,7 @@ class FullMatchShowsProvider(private val context: Context) : MainAPI() {
             }
         }
 
-        return HomePageResponse(lists)
+        return newHomePageResponse(lists)
     }
 
     override suspend fun load(url: String): LoadResponse? {

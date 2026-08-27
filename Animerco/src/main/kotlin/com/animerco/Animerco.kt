@@ -121,7 +121,7 @@ class animerco : MainAPI() {
                 toSearchResponse(it)
             }.let { if (it.isNotEmpty()) homePageList.add(HomePageList("آخر الأفلام المضافة", it)) }
 
-        return HomePageResponse(homePageList)
+        return newHomePageResponse(homePageList)
     }
 
     data class PlayerAjaxResponse(
@@ -222,7 +222,7 @@ class animerco : MainAPI() {
             val plot = doc.selectFirst("div.media-story div.content p")?.text()
             val tags = doc.select("div.genres a").map { it.text() }
             val year = doc.select("ul.media-info li:contains(بداية العرض) a").text().toIntOrNull()
-            val rating = doc.selectFirst("div.votes span.score")?.text()?.toRatingInt()
+            val rating = doc.selectFirst("div.votes span.score")?.text()?.toDoubleOrNull()?.let { Score.from10(it) }
 
             val typeText = doc.select("div.media-info li:contains(النوع) span").text()
             val isMovieByText = typeText.contains("Movie", ignoreCase = true) || typeText.contains("film", ignoreCase = true)
@@ -242,7 +242,7 @@ class animerco : MainAPI() {
                     this.plot = plot
                     this.tags = tags
                     this.year = year
-                    this.rating = rating
+                    this.score = rating
                 }
             }
 
@@ -296,7 +296,7 @@ class animerco : MainAPI() {
                     this.plot = plot
                     this.tags = tags
                     this.year = year
-                    this.rating = rating
+                    this.score = rating
                 }
             }
 
@@ -325,7 +325,7 @@ class animerco : MainAPI() {
                 this.plot = plot
                 this.tags = tags
                 this.year = year
-                this.rating = rating
+                this.score = rating
             }
         } catch (e: Exception) {
 
@@ -618,8 +618,6 @@ class animerco : MainAPI() {
 
                                             val pair = when (extracted) {
                                                 is String -> Pair(extracted, "EarnVids")
-                                                is Pair<*, *> -> Pair(extracted.first as? String ?: extracted.toString(), extracted.second as? String ?: "EarnVids")
-                                                is Map<*, *> -> Pair((extracted["url"] ?: extracted["link"] ?: extracted["href"]).toString(), (extracted["name"] as? String) ?: "EarnVids")
                                                 else -> Pair(extracted.toString(), "EarnVids")
                                             }
                                             val customUrl = ensureHttpsRaw(pair.first, data) ?: pair.first
@@ -652,19 +650,13 @@ class animerco : MainAPI() {
                                     val extras = processMegabox(abs, data) // processMegabox يجب أن يعيد قائمة مشابهة للبايثون
                                     for (mb in extras) {
 
-                                        val mbUrl = when (mb) {
-                                            is Pair<*, *> -> mb.second as? String
-                                            is Map<*, *> -> (mb["url"] ?: mb["link"] ?: mb["href"]) as? String
-                                            else -> mb.toString()
-                                        }
+                                        val mbUrl: String? = mb
                                         val finalMb = ensureHttpsRaw(mbUrl, abs) ?: mbUrl
                                         if (finalMb != null && (finalMb.contains("streamhg", ignoreCase = true) || finalMb.contains("earnvids", ignoreCase = true))) {
                                             val extracted = try { ExternalEarnVidsExtractor.extract(finalMb, data) } catch (_: Throwable) { null }
                                             if (extracted != null) {
                                                 val pair = when (extracted) {
                                                     is String -> Pair(extracted, "EarnVids")
-                                                    is Pair<*, *> -> Pair(extracted.first as? String ?: extracted.toString(), extracted.second as? String ?: "EarnVids")
-                                                    is Map<*, *> -> Pair((extracted["url"] ?: extracted["link"] ?: extracted["href"]).toString(), (extracted["name"] as? String) ?: "EarnVids")
                                                     else -> Pair(extracted.toString(), "EarnVids")
                                                 }
                                                 val customUrl = ensureHttpsRaw(pair.first, data) ?: pair.first
