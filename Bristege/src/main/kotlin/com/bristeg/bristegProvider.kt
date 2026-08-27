@@ -25,7 +25,7 @@ fun getQualityFromName(name: String?): Int {
 
 class BrstejProvider : MainAPI() {
 
-    override var mainUrl = "https://amd.brstej.com"
+    override var mainUrl = "https://a.prstej.net"
     override var name = "bristege"
     override val hasMainPage = true
     override var lang = "ar"

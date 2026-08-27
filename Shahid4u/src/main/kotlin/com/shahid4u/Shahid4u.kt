@@ -14,7 +14,7 @@ import okhttp3.Response
 import java.net.URLEncoder
 
 class Shahid4u : MainAPI() {
-    override var mainUrl = "https://shaahed4u.net/"
+    override var mainUrl = "https://shahid4u.run"
     override var name = "Shahid4u"
     override val hasMainPage = true
     override var lang = "ar"

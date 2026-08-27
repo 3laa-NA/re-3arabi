@@ -41,7 +41,7 @@ import kotlin.text.RegexOption
 
 
 class WitAnime : MainAPI() {
-    override var mainUrl = "https://witanime.red"
+    override var mainUrl = "https://witanime.you"
     override var name = "WitAnime"
     override val hasMainPage = true
     override var lang = "ar"
@@ -583,7 +583,7 @@ class WitAnime : MainAPI() {
 
                                                 else -> {
                                                     try {
-                                                        loadExtractor(finalLink, "https://witanime.red/", subtitleCallback, callback)
+                                                        loadExtractor(finalLink, "$mainUrl/", subtitleCallback, callback)
                                                     } catch (e: Exception) {
 
                                                     }
@@ -700,7 +700,7 @@ class WitAnime : MainAPI() {
         try {
             val html = app.get(
                 yonaplayUrl,
-                referer = "https://witanime.red/",
+                referer = "$mainUrl/",
                 headers = mapOf(
                     "User-Agent" to "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
                             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.90 Safari/537.36"

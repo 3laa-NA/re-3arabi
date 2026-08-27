@@ -4,13 +4,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-repositories {
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-}
-
 android {
-    namespace = "com.arabseed"
+    namespace = "com.phoenix"
     compileSdk = 34
 
     defaultConfig {
@@ -35,7 +30,6 @@ dependencies {
 
     val cloudstream by configurations
     implementation("com.google.android.material:material:1.13.0")
-    implementation("com.squareup.okhttp3:okhttp:5.2.1")
     implementation("androidx.browser:browser:1.9.0")
     implementation("androidx.room:room-ktx:2.8.0")
     testImplementation("junit:junit:4.13.2")

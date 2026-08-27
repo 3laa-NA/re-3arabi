@@ -6,7 +6,7 @@ import com.lagradost.cloudstream3.utils.*
 import org.jsoup.nodes.Element
 
 class CimaClub : MainAPI() {
-    override var mainUrl = "https://ciimaclub.club"
+    override var mainUrl = "https://cimaclub.guru"
     override var name = "CimaClub"
     override val hasMainPage = true
     override var lang = "ar"

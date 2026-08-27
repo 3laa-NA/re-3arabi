@@ -31,7 +31,7 @@ import org.jsoup.Jsoup
 import java.net.URI
 
 class animerco : MainAPI() {
-    override var mainUrl = "https://gat.animerco.org"
+    override var mainUrl = "https://eta.animerco.org"
     override var name = "Animerco"
     override val hasMainPage = true
     override var lang = "ar"

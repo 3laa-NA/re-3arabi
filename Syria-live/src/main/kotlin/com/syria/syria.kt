@@ -6,7 +6,7 @@ import android.util.Base64
 import org.jsoup.nodes.Element
 
 class SyriaLiveProvider : MainAPI() {
-    override var mainUrl = "https://www.syrlive.com"
+    override var mainUrl = "https://d.syria-scores.com"
     override var name = "SyriaLive"
     override val hasMainPage = true
     override var lang = "ar"
@@ -20,7 +20,7 @@ class SyriaLiveProvider : MainAPI() {
 
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
 
-        val doc = app.get("https://d.syrlive.com/").document
+        val doc = app.get("$mainUrl/").document
         val homePageList = mutableListOf<HomePageList>()
 
         val matches = doc.select(".match-container").mapNotNull { element ->

@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element
 import com.lody.ExternalEarnVidsExtractor
 
 class LodyNet : MainAPI() {
-    override var mainUrl = "https://lodynet.watch"
+    override var mainUrl = "https://lodynet.top"
     override var name = "LodyNet"
     override val hasMainPage = true
     override var lang = "ar"

@@ -11,7 +11,7 @@ import com.lagradost.cloudstream3.network.CloudflareKiller
 import okhttp3.Interceptor
 
 class WecimaProvider : MainAPI() {
-    override var mainUrl = "https://wecima.ac"
+    override var mainUrl = "https://wecima.cx"
     override var name = "We Cima"
     override val hasMainPage = true
     override var lang = "ar"

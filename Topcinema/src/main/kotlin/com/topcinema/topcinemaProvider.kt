@@ -14,7 +14,7 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 
 class TopCinemaProvider : MainAPI() {
-    override var mainUrl = "https://web8.topcinema.cam"
+    override var mainUrl = "https://topcinma.com"
     override var name = "Top Cinema"
     override val hasMainPage = true
     override var lang = "ar"
